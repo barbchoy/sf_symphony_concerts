@@ -1,5 +1,2 @@
-require "sf_symphony_concerts/version"
-
-module SfSymphonyConcerts
-  # Your code goes here...
-end
+require_relative './sf_symphony_concerts/version'
+require_relative './sf_symphony_concerts/cli'

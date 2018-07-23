@@ -32,6 +32,8 @@ class SfSymphonyConcerts::CLI
     17. ALL
 
     DOC
+
+
   end
 
   def list_the_month
@@ -42,11 +44,11 @@ class SfSymphonyConcerts::CLI
       input = gets.strip.downcase
       case input
       when "1"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(6)
       when "2"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(7)
       when "3"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(8)
       when "4"
         puts "Concert info for July 2018"
       when "5"

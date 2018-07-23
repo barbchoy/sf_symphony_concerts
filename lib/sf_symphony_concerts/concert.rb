@@ -1,4 +1,4 @@
-class SfSymphonyConcerts::Concerts
+class SfSymphonyConcerts::Concert
 
   def self.this_month(month)
     puts "Concerts for month #{month}"

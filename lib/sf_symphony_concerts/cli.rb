@@ -1,5 +1,12 @@
 class SfSymphonyConcerts::CLI
 
+  MONTHS_VALUES = {
+    one: '6',
+    two: '7',
+    three: '8',
+    four: '9'
+  }
+
   def call
     puts "Hello World!"
     list_months
@@ -42,25 +49,42 @@ class SfSymphonyConcerts::CLI
     while input != "exit"
       puts "Select the month for the season of 2018-19 , type 17 for all, list or exit: "
       input = gets.strip.downcase
+
       case input
       when "1"
-        @concerts = SfSymphonyConcerts::Concert.this_month(6)
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 6)
       when "2"
-        @concerts = SfSymphonyConcerts::Concert.this_month(7)
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 7)
       when "3"
-        @concerts = SfSymphonyConcerts::Concert.this_month(8)
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 8)
       when "4"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 9)
       when "5"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 10)
       when "6"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 11)
       when "7"
-        puts "Concert info for July 2018"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2018, 12)
       when "8"
-        puts "Concert info for July 2018"
-      when "all"
-        puts "All Concerts info"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 1)
+      when "9"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 2)
+      when "10"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 3)
+      when "11"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 4)
+      when "12"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 5)
+      when "13"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 6)
+      when "14"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 7)
+      when "15"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 8)
+      when "16"
+        @concerts = SfSymphonyConcerts::Concert.this_month(2019, 9)
+      when "17"
+        @concerts = SfSymphonyConcerts::Concert.this_month(3000, 100)
       when "list"
         list_months
       else
@@ -72,9 +96,11 @@ class SfSymphonyConcerts::CLI
 
   def goodbye
     puts ""
-    puts <<-DOC.gsub /^\s*/,''
+    puts <<-DOC.gsub /^\s*/, ''
+    ******************************************
     "Music is the movement of sound to reach
     the soul for the education of its virtue."
+    ******************************************
     from Plato.
     Thank you and see you soon.
     DOC

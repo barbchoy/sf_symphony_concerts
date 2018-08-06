@@ -1,21 +1,23 @@
 class SfSymphonyConcerts::Scraper
 
   def self.get_page(url)
-    doc  = Nokogiri::HTML(open(url))
+    doc = Nokogiri::HTML(open(url))
   end
 
-  def self.scrape_concerts_index
-    self.get_page.css("")
+  def self.scrape_concerts_index(url)
+    puts self.get_page(url).css("div.calendar-events")
+    self.get_page(url).css("div.calendar-events")
   end
 
 
   def self.scrape_month(url)
 
     concerts = []
-    scrape_concerts_index.each do |c|
+    scrape_concerts_index(url).each do |c|
       concert = SfSymphonyConcerts::Concert.new
-      concert.title = c.css("").text
-      concert.date = c.css("").text
+      concert.title = c.css(div.calendar-events-item).css("div.calendar-events-title").text
+      puts concert.title
+      concert.date = c.css("calendar-events-dates").text
       concerts << concert
       puts concert
       puts " "

@@ -4,7 +4,7 @@ class SfSymphonyConcerts::CLI
   def call
     puts "Hello World!"
     list_months
-    list_the_month
+    menu
     goodbye
   end
 
@@ -34,10 +34,9 @@ class SfSymphonyConcerts::CLI
 
     DOC
 
-
   end
 
-  def list_the_month
+  def menu
 
     input = nil
     while input != "exit"
@@ -55,7 +54,7 @@ class SfSymphonyConcerts::CLI
         puts "Not sure what you want, type list or exit "
       end
     end
-    
+
   end
 
   def goodbye

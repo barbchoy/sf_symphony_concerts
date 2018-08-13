@@ -23,7 +23,6 @@ class SfSymphonyConcerts::Scraper
       concert = SfSymphonyConcerts::Concert.new
       concert.title = c.find(".calendar-events-title").text
       concert.date = c.find(".calendar-events-dates").text
-      # concert.url = c.find(".calendar-events-cta")[:href]
       concert.url = c.find_link("Learn More")[:href]
       puts concert.url
       concerts << concert
@@ -31,7 +30,8 @@ class SfSymphonyConcerts::Scraper
     concerts
   end
 
-  def scraper_concert
+  def scraper_concert(url)
+
   end
 
 end

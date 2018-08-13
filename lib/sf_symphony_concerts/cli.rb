@@ -2,7 +2,10 @@ class SfSymphonyConcerts::CLI
 
 
   def call
-    puts "Hello World!"
+    puts "**********************************************************************"
+    puts "Welcome to the San Francisco Symphony. Below you will find information"
+    puts "about the concerts in the upcoming season 2018-19."
+    puts "**********************************************************************"
     list_months
     menu
     goodbye

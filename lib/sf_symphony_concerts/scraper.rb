@@ -22,8 +22,10 @@ class SfSymphonyConcerts::Scraper
       # binding.pry
       concert = SfSymphonyConcerts::Concert.new
       concert.title = c.find(".calendar-events-title").text
-      puts concert.title
       concert.date = c.find(".calendar-events-dates").text
+      # concert.url = c.find(".calendar-events-cta")[:href]
+      concert.url = c.find_link("Learn More")[:href]
+      puts concert.url
       concerts << concert
     end
     concerts

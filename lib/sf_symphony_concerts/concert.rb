@@ -1,6 +1,6 @@
 class SfSymphonyConcerts::Concert
 
-  attr_accessor :title, :date, :description, :conductor, :performers, :program
+  attr_accessor :title, :date, :description, :conductor, :performers, :program, :url
 
   def self.this_month(year, month)
     url_string = "http://www.sfsymphony.org/Buy-Tickets/Calendar#mo=#{year}:#{month}"

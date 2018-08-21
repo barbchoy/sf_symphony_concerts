@@ -11,11 +11,11 @@ class SfSymphonyConcerts::Concert
     # @concerts.each.with_index(1) do |concert, i|
     #   puts "#{i}. #{concert.title} - #{concert.date}"
     # end
-    display_this_month
+    display_concerts
     ask_which_concert
   end
 
-  def self.display_this_month
+  def self.display_concerts
     @concerts.each.with_index(1) do |concert, i|
       puts "#{i}. #{concert.title} - #{concert.date}"
     end
@@ -24,7 +24,7 @@ class SfSymphonyConcerts::Concert
   def self.ask_which_concert
     puts "Select a concert or type back: "
     input = nil
-    while input != "back"
+    while input != "back" # check exit
       input = gets.strip.downcase
       if input.to_i >= 1 && input.to_i <= 7
         puts " "
@@ -33,10 +33,12 @@ class SfSymphonyConcerts::Concert
         puts "Select a concert or type back: "
       else
         puts "Not sure what you want, select a concert or type back."
-        display_this_month
+        display_concerts #display_concerts
       end
-    end
-    SfSymphonyConcerts::CLI.new.call
+    end # if back or exit # concert list method
+    # if back -> display_all_months_july...Sept
+    # if
+    # SfSymphonyConcerts::CLI.new.call
   end
 
 end

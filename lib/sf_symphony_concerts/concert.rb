@@ -8,9 +8,6 @@ class SfSymphonyConcerts::Concert
 
     @concerts = SfSymphonyConcerts::Scraper.scrape_month(url_string)
 
-    # @concerts.each.with_index(1) do |concert, i|
-    #   puts "#{i}. #{concert.title} - #{concert.date}"
-    # end
     display_concerts
     ask_which_concert
   end
@@ -33,12 +30,10 @@ class SfSymphonyConcerts::Concert
         puts "Select a concert or type back: "
       else
         puts "Not sure what you want, select a concert or type back."
-        display_concerts #display_concerts
+        display_concerts 
       end
-    end # if back or exit # concert list method
-    # if back -> display_all_months_july...Sept
-    # if
-    # SfSymphonyConcerts::CLI.new.call
+    end 
+    
   end
 
 end

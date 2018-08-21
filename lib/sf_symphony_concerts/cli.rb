@@ -6,7 +6,7 @@ class SfSymphonyConcerts::CLI
     puts "Welcome to the San Francisco Symphony. Below you will find information"
     puts "about the concerts in the upcoming season 2018-19."
     puts "**********************************************************************"
-    list_months
+    # list_months
     menu
     goodbye
   end
@@ -43,6 +43,7 @@ class SfSymphonyConcerts::CLI
 
     input = nil
     while input != "exit"
+      list_months
       puts "Select the month for the season of 2018-19 , type 17 for all, list or exit: "
       input = gets.strip.downcase
       if input.to_i >= 1 && input.to_i <= 7

@@ -27,7 +27,6 @@ class SfSymphonyConcerts::Concert
         puts " "
         puts "Description: #{@concerts[input.to_i - 1].description}"
         puts "Conductor: #{@concerts[input.to_i - 1].conductor}"
-        puts "Performers: #{@concerts[input.to_i - 1].performers}"
         puts "Program: #{@concerts[input.to_i - 1].program}"
         puts "**************************************************"
         display_concerts

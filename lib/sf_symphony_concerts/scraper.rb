@@ -10,6 +10,11 @@ class SfSymphonyConcerts::Scraper
     session
   end
 
+  def self.get_page_concert(url)
+    doc = Nokogiri::HTML(open(url))
+    doc
+  end
+
   def self.scrape_concerts_index(url)
     self.get_page(url).all(".calendar-events-item")
   end
@@ -28,7 +33,6 @@ class SfSymphonyConcerts::Scraper
       concert.conductor = scrape_concert(concert.url)[0]
       concert.program = scrape_concert(concert.url)[1]
       concert.description = scrape_concert(concert.url)[2]
-      concert.performers = scrape_concert(concert.url)[3]
       concerts << concert
     end
     concerts
@@ -36,12 +40,13 @@ class SfSymphonyConcerts::Scraper
 
   def self.scrape_concert(url)
 
-    conductor = "MTT"
-    program = "A great program"
-    description = "Awesome description"
-    performers = "Yo Yo Ma"
+    event = self.get_page_concert(url).css(".event-main-col")
 
-    [conductor, program, description, performers]
+    conductor_performers = event.css(".artist-credit-container").text
+    program = event.css(".work-credit-container").text
+    description = event.css(".event-details").text
+
+    [conductor_performers, program, description]
 
   end
 

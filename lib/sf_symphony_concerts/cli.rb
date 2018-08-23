@@ -33,7 +33,6 @@ class SfSymphonyConcerts::CLI
     14. July 2019
     15. August 2019
     16. September 2019
-    17. ALL
 
     DOC
 
@@ -50,8 +49,8 @@ class SfSymphonyConcerts::CLI
         @concerts = SfSymphonyConcerts::Concert.this_month(2018, input.to_i + 5)
       elsif input.to_i >= 8 && input.to_i <= 16
         @concerts = SfSymphonyConcerts::Concert.this_month(2019, input.to_i - 7)
-      elsif input.to_i == 17
-        @concerts = SfSymphonyConcerts::Concert.this_month(3000, 100)
+      # elsif input.to_i == 17
+      #   @concerts = SfSymphonyConcerts::Concert.this_month(3000, 100)
       elsif input == "list"
         list_months
       else

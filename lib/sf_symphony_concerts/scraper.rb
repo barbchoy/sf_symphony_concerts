@@ -4,7 +4,6 @@ require 'capybara/poltergeist'
 class SfSymphonyConcerts::Scraper
 
   def self.get_page(url)
-    #doc = Nokogiri::HTML(open(url))
     session = Capybara::Session.new(:poltergeist)
     session.visit(url)
     session
@@ -36,17 +35,19 @@ class SfSymphonyConcerts::Scraper
       end
       concert.url = url
       puts concert.url
-      concert.conductor = scrape_concert(concert.url)[0] #Scrape performers
-      concert.program = scrape_concert(concert.url)[1] #Scrape program
-      concert.description = scrape_concert(concert.url)[2]
+      event = self.get_page_concert(url).css(".event-main-col")
+      
+      concert.artists = self.scrape_artists(event)
+      concert.program = self.scrape_program(event)
+      concert.description = self.scrape_description(event)
+
       concerts << concert
     end
     concerts
   end
 
-  def self.scrape_concert(url)
-
-    event = self.get_page_concert(url).css(".event-main-col")
+  def self.scrape_artists(event)
+    
     artist_cards = event.css(".artist-detail-item")
     performers = []
     artist_cards.each do |artist|
@@ -54,17 +55,17 @@ class SfSymphonyConcerts::Scraper
       position = artist.children[3].text.strip
       performers << "#{name} - #{position}"
     end
-
-    #conductor_performers = event.css(".artist-credit-container").text
-    program = event.css(".work-credit-container").text
-    description = event.css(".event-details").text
-
-    # concert.conductor = conductor_performers
-    # concert.program = program
-    # concert.description = description
-
-    [conductor_performers, program, description]
-
+    performers
   end
+
+  def self.scrape_program(event)
+    event.css(".work-credit-container").text.strip
+  end
+
+  def self.scrape_description(event)
+    event.css(".event-details").text.strip
+  end
+
+  
 
 end

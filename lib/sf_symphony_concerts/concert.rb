@@ -1,6 +1,6 @@
 class SfSymphonyConcerts::Concert
 
-  attr_accessor :title, :date, :description, :conductor, :program, :url
+  attr_accessor :title, :date, :description, :artists, :program, :url
 
   @@all = []
 
@@ -46,17 +46,19 @@ class SfSymphonyConcerts::Concert
     while input != "back" && input != "exit"
       input = gets.strip.downcase
       if input.to_i >= 1 && input.to_i <= @concerts.count
-        concert_url = @concerts[input.to_i - 1].url
-        details = SfSymphonyConcerts::Scraper.scrape_concert(concert_url)
+        # concert_url = @concerts[input.to_i - 1].url
+        # details = SfSymphonyConcerts::Scraper.scrape_concert(concert_url)
+        # 
+        # @concerts[input.to_i - 1].artists = details[0]
+        # @concerts[input.to_i - 1].description = details[1]
+        # @concerts[input.to_i - 1].program = details[2]
 
-        @concerts[input.to_i - 1].conductor = details[0]
-        @concerts[input.to_i - 1].description = details[1]
-        @concerts[input.to_i - 1].program = details[2]
 
-
-        puts " "
+        puts ""
         puts "Description: #{@concerts[input.to_i - 1].description}"
-        puts "Conductor: #{@concerts[input.to_i - 1].conductor}"
+        puts ""
+        puts "Conductor and Performers: #{@concerts[input.to_i - 1].artists}"
+        puts ""
         puts "Program: #{@concerts[input.to_i - 1].program}"
         puts "**************************************************"
 

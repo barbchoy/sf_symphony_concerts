@@ -23,7 +23,6 @@ class SfSymphonyConcerts::Scraper
 
     concerts = []
     scrape_concerts_index(url).each do |c|
-      # binding.pry
       concert = SfSymphonyConcerts::Concert.new
       concert.title = c.find(".calendar-events-title").text
       concert.date = c.find(".calendar-events-dates").text
@@ -34,13 +33,10 @@ class SfSymphonyConcerts::Scraper
         url = c.find_link("Buy Tickets")[:href]
       end
       concert.url = url
-      puts concert.url
       event = self.get_page_concert(url).css(".event-main-col")
-
       concert.artists = self.scrape_artists(event)
       concert.program = self.scrape_program(event)
       concert.description = self.scrape_description(event)
-
       concerts << concert
     end
     concerts
@@ -59,15 +55,14 @@ class SfSymphonyConcerts::Scraper
   end
 
   def self.scrape_program(event)
-    program_cards = event.css(".work-credit program-item")
+    program_cards = event.css(".work-credit")
     program = []
     program_cards.each do |card|
-      composer = card.children[1].text.strip
-      song = card.children[3].text.strip
-      performers << "#{composer} - #{song}"
+      composer = card.children[1].text.strip if card.children[1]
+      song = card.children[3].text.strip if card.children[3]
+      program << "#{composer} - #{song}"
     end
     program
-    #event.css(".work-credit-container").text.strip
   end
 
   def self.scrape_description(event)

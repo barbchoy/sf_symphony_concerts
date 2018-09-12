@@ -29,4 +29,8 @@ class SfSymphonyConcerts::Concert
     @concerts = SfSymphonyConcerts::Scraper.scrape_month(url_string)
   end
 
+  def scrape_details(url_string)
+    SfSymphonyConcerts::Scraper.scrape_details(url_string)
+  end
+
 end

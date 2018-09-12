@@ -2,4 +2,5 @@
 
 require_relative '../lib/sf_symphony_concerts'
 
-SfSymphonyConcerts::CLI.new.call
+# SfSymphonyConcerts::CLI.new.call
+SfSymphonyConcerts::CLI.new

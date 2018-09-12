@@ -1,5 +1,7 @@
 class SfSymphonyConcerts::CLI
 
+  attr_accessor :concerts
+
   MONTH_STRINGS = {
     1 => "January",
     2 => "February",
@@ -11,8 +13,14 @@ class SfSymphonyConcerts::CLI
     8 => "August",
     9 => "September",
     10 => "October",
-    11 => "December"
+    11 => "November",
+    12 => "December"
   }
+
+  def initialize
+    @concerts = []
+    self.call
+  end
 
 
   def call
@@ -57,23 +65,32 @@ class SfSymphonyConcerts::CLI
     input = nil
     while input != "exit"
       list_months
-      puts "Select the month for the season of 2018-19 , type 17 for all, list or exit: "
+      puts "Select the month for the season of 2018-19 , list or exit: "
       input = gets.strip.downcase
       if input.to_i >= 1 && input.to_i <= 7
         @concerts = SfSymphonyConcerts::Concert.this_month(2018, input.to_i + 5)
-        month_string = MONTH_STRINGS[input.to_i + 5] + "2018"
-        display_concerts(month_string)
-        ask_which_concert(month_string)
+        month_string = MONTH_STRINGS[input.to_i + 5] + " 2018"
+        if @concerts ==[]
+          puts "There is no concert for the month. Please select another month."
+        else
+          display_concerts(month_string)
+          ask_which_concert(month_string)
+        end
       elsif input.to_i >= 8 && input.to_i <= 16
         @concerts = SfSymphonyConcerts::Concert.this_month(2019, input.to_i - 7)
-        month_string = MONTH_STRINGS[input.to_i + 5] + "2019"
-        display_concerts(month_string)
-        ask_which_concert(month_string)
+        month_string = MONTH_STRINGS[input.to_i - 7] + " 2019"
+        if @concerts ==[]
+          puts "There is no concert for the month. Please select another month."
+        else
+          display_concerts(month_string)
+          ask_which_concert(month_string)
+        end
       elsif input == "list"
         list_months
       else
         puts "Not sure what you want, type list or exit "
       end
+
     end
 
   end
@@ -105,22 +122,29 @@ class SfSymphonyConcerts::CLI
       input = gets.strip.downcase
       if input.to_i >= 1 && input.to_i <= @concerts.count
 
+        concert = @concerts[input.to_i - 1]
+
+        if concert.artists == ""
+          concert.artists = concert.scrape_details(concert.url)[0]
+          concert.program = concert.scrape_details(concert.url)[1]
+          concert.description = concert.scrape_details(concert.url)[2]
+        end
+
         puts "**************************************************"
         puts "Description: "
-        puts "#{@concerts[input.to_i - 1].description}"
+        puts "#{concert.description}"
         puts ""
         puts "Conductor and Performers:"
-        @concerts[input.to_i - 1].artists.each do |artist|
+        concert.artists.each do |artist|
           puts artist
         end
         puts ""
         puts "Program: "
-        @concerts[input.to_i - 1].program.each do |song|
+        concert.program.each do |song|
           puts song
         end
         puts "**************************************************"
         puts ""
-
         display_concerts(month_string)
         puts "Select a concert or type back: "
       else

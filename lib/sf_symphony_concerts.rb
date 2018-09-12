@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
+require 'capybara/poltergeist'
 
 require_relative './sf_symphony_concerts/version'
 require_relative './sf_symphony_concerts/cli'

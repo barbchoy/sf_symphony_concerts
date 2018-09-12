@@ -1,6 +1,3 @@
-require 'pry'
-require 'capybara/poltergeist'
-
 class SfSymphonyConcerts::Scraper
 
   def self.get_page(url)

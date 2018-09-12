@@ -1,3 +1,10 @@
+Fix README
+Resolve relationships in cli
+Try to scrape months from pull down
+MAke objects with no details
+Scrape details if I ask
+
+
 A command line interfect that starts with:
 
 user type: sf_symphony_concerts

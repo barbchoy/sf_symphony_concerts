@@ -7,15 +7,19 @@ class SfSymphonyConcerts::Scraper
     session
   end
 
-  def self.get_page_concert(url)
+  def self.get_page_nokogiri(url)
     doc = Nokogiri::HTML(open(url))
     doc
+  end
+
+  def self.get_page_months
+    buy_tickets_page = "http://www.sfsymphony.org/Buy-Tickets/Calendar"
+    self.get_page_nokogiri(buy_tickets_page).all(".minical-nav")
   end
 
   def self.scrape_concerts_index(url)
     self.get_page(url).all(".calendar-events-item")
   end
-
 
   def self.scrape_month(url)
     concerts = []
@@ -39,7 +43,7 @@ class SfSymphonyConcerts::Scraper
   end
 
   def self.scrape_details(url)
-    event = self.get_page_concert(url).css(".event-main-col")
+    event = self.get_page_nokogiri(url).css(".event-main-col")
     artists = self.scrape_artists(event)
     program = self.scrape_program(event)
     description = self.scrape_description(event)
@@ -71,7 +75,5 @@ class SfSymphonyConcerts::Scraper
   def self.scrape_description(event)
     event.css(".event-details").text.strip
   end
-
-
 
 end

@@ -12,13 +12,22 @@ class SfSymphonyConcerts::Scraper
     doc
   end
 
-  def self.get_page_months
+  def self.scrape_minical_index
     buy_tickets_page = "http://www.sfsymphony.org/Buy-Tickets/Calendar"
-    self.get_page_nokogiri(buy_tickets_page).all(".minical-nav")
+    self.get_page_nokogiri(buy_tickets_page).css(".minical-hdr").children[3]
   end
 
   def self.scrape_concerts_index(url)
     self.get_page(url).all(".calendar-events-item")
+  end
+
+  def self.scrape_minical
+    months = []
+    no_of_months = scrape_minical_index.children.count-1
+    scrape_minical_index.children[1..count].each do |month|
+    puts month.text.strip
+    end
+    months
   end
 
   def self.scrape_month(url)

@@ -35,6 +35,8 @@ class SfSymphonyConcerts::CLI
 
   def list_months
 
+    SfSymphonyConcerts::Scraper.scrape_minical
+
     puts <<-DOC.gsub /^\s*/,''
 
     Upcoming concerts in the following months:

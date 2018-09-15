@@ -23,9 +23,12 @@ class SfSymphonyConcerts::Scraper
 
   def self.scrape_minical
     months = []
-    no_of_months = scrape_minical_index.children.count-1
-    scrape_minical_index.children[1..count].each do |month|
-    puts month.text.strip
+    # no_of_months = scrape_minical_index.children.count
+    scrape_minical_index.children[3..-1].each do |month|
+      if month.text.strip != ""
+        binding.pry
+        months << month.text.strip
+      end
     end
     months
   end

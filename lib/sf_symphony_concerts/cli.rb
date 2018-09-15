@@ -35,30 +35,34 @@ class SfSymphonyConcerts::CLI
 
   def list_months
 
-    SfSymphonyConcerts::Scraper.scrape_minical
+    months = SfSymphonyConcerts::Scraper.scrape_minical
+    puts "Upcoming concerts in the following months:"
+    months.each_with_index do |month, index|
+      puts "#{index+1}: #{month}"
+    end
 
-    puts <<-DOC.gsub /^\s*/,''
-
-    Upcoming concerts in the following months:
-
-    1. June 2018
-    2. July 2018
-    3. August 2018
-    4. September 2018
-    5. October 2018
-    6. November 2018
-    7. December 2018
-    8. January 2019
-    9. February 2019
-    10. March 2019
-    11. April 2019
-    12. May 2019
-    13. June 2019
-    14. July 2019
-    15. August 2019
-    16. September 2019
-
-    DOC
+    # puts <<-DOC.gsub /^\s*/,''
+    #
+    # Upcoming concerts in the following months:
+    #
+    # 1. June 2018
+    # 2. July 2018
+    # 3. August 2018
+    # 4. September 2018
+    # 5. October 2018
+    # 6. November 2018
+    # 7. December 2018
+    # 8. January 2019
+    # 9. February 2019
+    # 10. March 2019
+    # 11. April 2019
+    # 12. May 2019
+    # 13. June 2019
+    # 14. July 2019
+    # 15. August 2019
+    # 16. September 2019
+    #
+    # DOC
 
   end
 

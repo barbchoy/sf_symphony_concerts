@@ -23,12 +23,11 @@ class SfSymphonyConcerts::Scraper
 
   def self.scrape_minical
     months = []
-    # no_of_months = scrape_minical_index.children.count
-    scrape_minical_index.children[3..-1].each do |month|
-      if month.text.strip != ""
-        binding.pry
-        months << month.text.strip
-      end
+    no_of_months = scrape_minical_index.css('option').count
+    [1..no_of_months].each_key do |index, item|
+      puts "#{index}. " + scrape_minical_index.css('option')[index].text
+      value = scrape_minical_index.css('option')[index]['value']
+      puts "#{value}"
     end
     months
   end

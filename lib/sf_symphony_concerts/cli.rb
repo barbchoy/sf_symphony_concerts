@@ -1,6 +1,6 @@
 class SfSymphonyConcerts::CLI
 
-  attr_accessor :concerts
+  attr_accessor :concerts, :months_values
 
   MONTH_STRINGS = {
     1 => "January",
@@ -19,6 +19,7 @@ class SfSymphonyConcerts::CLI
 
   def initialize
     @concerts = []
+    @months_values = {}
     self.call
   end
 
@@ -34,11 +35,12 @@ class SfSymphonyConcerts::CLI
   end
 
   def list_months
-
-    months = SfSymphonyConcerts::Scraper.scrape_minical
+    @months_values = SfSymphonyConcerts::Scraper.scrape_minical if @months_values == {}
     puts "Upcoming concerts in the following months:"
-    months.each_with_index do |month, index|
-      puts "#{index+1}: #{month}"
+    index = 1
+    @months_values.each_key do |month|
+      puts "#{index}: #{month}"
+      index += 1
     end
 
     # puts <<-DOC.gsub /^\s*/,''

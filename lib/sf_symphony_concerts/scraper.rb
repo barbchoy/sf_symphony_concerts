@@ -22,14 +22,14 @@ class SfSymphonyConcerts::Scraper
   end
 
   def self.scrape_minical
-    months = []
+    months_values = {}
     no_of_months = scrape_minical_index.css('option').count
-    [1..no_of_months].each_key do |index, item|
-      puts "#{index}. " + scrape_minical_index.css('option')[index].text
+    (1..no_of_months-1).each do |index|
+      month = scrape_minical_index.css('option')[index].text
       value = scrape_minical_index.css('option')[index]['value']
-      puts "#{value}"
+      months_values[month] = value
     end
-    months
+    months_values
   end
 
   def self.scrape_month(url)

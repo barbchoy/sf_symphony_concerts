@@ -42,30 +42,6 @@ class SfSymphonyConcerts::CLI
       puts "#{index}: #{month}"
       index += 1
     end
-
-    # puts <<-DOC.gsub /^\s*/,''
-    #
-    # Upcoming concerts in the following months:
-    #
-    # 1. June 2018
-    # 2. July 2018
-    # 3. August 2018
-    # 4. September 2018
-    # 5. October 2018
-    # 6. November 2018
-    # 7. December 2018
-    # 8. January 2019
-    # 9. February 2019
-    # 10. March 2019
-    # 11. April 2019
-    # 12. May 2019
-    # 13. June 2019
-    # 14. July 2019
-    # 15. August 2019
-    # 16. September 2019
-    #
-    # DOC
-
   end
 
   def menu
@@ -75,24 +51,34 @@ class SfSymphonyConcerts::CLI
       list_months
       puts "Select the month for the season of 2018-19 , list or exit: "
       input = gets.strip.downcase
-      if input.to_i >= 1 && input.to_i <= 7
-        @concerts = SfSymphonyConcerts::Concert.this_month(2018, input.to_i + 5)
-        month_string = MONTH_STRINGS[input.to_i + 5] + " 2018"
+      if input.to_i >= 1 && input.to_i <= @months_values.count
+        month_string = @months_values.keys[input.to_i - 1]
+        value = @months_values[month_string]
+        @concerts = SfSymphonyConcerts::Concert.this_month(value)
         if @concerts ==[]
           puts "There is no concert for the month. Please select another month."
         else
           display_concerts(month_string)
           ask_which_concert(month_string)
         end
-      elsif input.to_i >= 8 && input.to_i <= 16
-        @concerts = SfSymphonyConcerts::Concert.this_month(2019, input.to_i - 7)
-        month_string = MONTH_STRINGS[input.to_i - 7] + " 2019"
-        if @concerts ==[]
-          puts "There is no concert for the month. Please select another month."
-        else
-          display_concerts(month_string)
-          ask_which_concert(month_string)
-        end
+      # if input.to_i >= 1 && input.to_i <= 7
+      #   @concerts = SfSymphonyConcerts::Concert.this_month(2018, input.to_i + 5)
+      #   month_string = MONTH_STRINGS[input.to_i + 5] + " 2018"
+      #   if @concerts ==[]
+      #     puts "There is no concert for the month. Please select another month."
+      #   else
+      #     display_concerts(month_string)
+      #     ask_which_concert(month_string)
+      #   end
+      # elsif input.to_i >= 8 && input.to_i <= 16
+      #   @concerts = SfSymphonyConcerts::Concert.this_month(2019, input.to_i - 7)
+      #   month_string = MONTH_STRINGS[input.to_i - 7] + " 2019"
+      #   if @concerts ==[]
+      #     puts "There is no concert for the month. Please select another month."
+      #   else
+      #     display_concerts(month_string)
+      #     ask_which_concert(month_string)
+      #   end
       elsif input == "list"
         list_months
       else

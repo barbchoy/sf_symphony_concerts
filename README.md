@@ -1,8 +1,6 @@
 # SfSymphonyConcerts
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sf_symphony_concerts`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to the SfSymphonyConcerts CLI (Command Line Interface). This CLI will find out the upcoming concerts of the San Francisco Symphony. 
 
 ## Installation
 
@@ -22,7 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+After installation, type `ruby bin/sf-symphony-concerts`.
+
+The CLI will display a list of months.
+
+Select a month from the list, then it will display the list of concerts for the selected month.
+
+Select a concert from the list of concerts for further details, or type exit or back to go back to the list of concerts.
 
 ## Development
 

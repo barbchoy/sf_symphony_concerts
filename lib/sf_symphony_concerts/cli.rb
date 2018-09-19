@@ -2,21 +2,6 @@ class SfSymphonyConcerts::CLI
 
   attr_accessor :concerts, :months_values
 
-  MONTH_STRINGS = {
-    1 => "January",
-    2 => "February",
-    3 => "March",
-    4 => "April",
-    5 => "May",
-    6 => "June",
-    7 => "July",
-    8 => "August",
-    9 => "September",
-    10 => "October",
-    11 => "November",
-    12 => "December"
-  }
-
   def initialize
     @concerts = []
     @months_values = {}
@@ -55,38 +40,18 @@ class SfSymphonyConcerts::CLI
         month_string = @months_values.keys[input.to_i - 1]
         value = @months_values[month_string]
         @concerts = SfSymphonyConcerts::Concert.this_month(value)
-        if @concerts ==[]
+        if @concerts == []
           puts "There is no concert for the month. Please select another month."
         else
           display_concerts(month_string)
           ask_which_concert(month_string)
         end
-      # if input.to_i >= 1 && input.to_i <= 7
-      #   @concerts = SfSymphonyConcerts::Concert.this_month(2018, input.to_i + 5)
-      #   month_string = MONTH_STRINGS[input.to_i + 5] + " 2018"
-      #   if @concerts ==[]
-      #     puts "There is no concert for the month. Please select another month."
-      #   else
-      #     display_concerts(month_string)
-      #     ask_which_concert(month_string)
-      #   end
-      # elsif input.to_i >= 8 && input.to_i <= 16
-      #   @concerts = SfSymphonyConcerts::Concert.this_month(2019, input.to_i - 7)
-      #   month_string = MONTH_STRINGS[input.to_i - 7] + " 2019"
-      #   if @concerts ==[]
-      #     puts "There is no concert for the month. Please select another month."
-      #   else
-      #     display_concerts(month_string)
-      #     ask_which_concert(month_string)
-      #   end
       elsif input == "list"
         list_months
       else
         puts "Not sure what you want, type list or exit "
       end
-
     end
-
   end
 
   def goodbye
@@ -146,8 +111,6 @@ class SfSymphonyConcerts::CLI
         display_concerts(month_string)
       end
     end
-
   end
-
 
 end

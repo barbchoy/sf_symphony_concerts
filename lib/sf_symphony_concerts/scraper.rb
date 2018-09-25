@@ -8,8 +8,8 @@ class SfSymphonyConcerts::Scraper
   end
 
   def self.get_page_nokogiri(url)
-    doc = Nokogiri::HTML(open(url))
-    doc
+    # puts "*************Scraping**************"
+    @doc ||= Nokogiri::HTML(open(url))
   end
 
   def self.scrape_minical_index
@@ -29,12 +29,13 @@ class SfSymphonyConcerts::Scraper
       value = scrape_minical_index.css('option')[index]['value']
       months_values[month] = value
     end
+    @doc = nil
     months_values
   end
 
-  def self.scrape_month(url)
-    concerts = []
-    scrape_concerts_index(url).each do |c|
+  def self.scrape_month(url, month)
+    month_concert_info = scrape_concerts_index(url)
+    month_concert_info.each do |c|
       concert = SfSymphonyConcerts::Concert.new
       concert.title = c.find(".calendar-events-title").text
       concert.date = c.find(".calendar-events-dates").text
@@ -45,12 +46,11 @@ class SfSymphonyConcerts::Scraper
         url = c.find_link("Buy Tickets")[:href]
       end
       concert.url = url
+      concert.month = month
       concert.artists = ""
       concert.program = ""
       concert.description = ""
-      concerts << concert
     end
-    concerts
   end
 
   def self.scrape_details(url)

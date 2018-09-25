@@ -1,6 +1,6 @@
 class SfSymphonyConcerts::Concert
 
-  attr_accessor :title, :date, :description, :artists, :program, :url
+  attr_accessor :title, :date, :description, :artists, :program, :url, :month
 
   @@all = []
 
@@ -20,13 +20,17 @@ class SfSymphonyConcerts::Concert
     end
   end
 
+  def self.find_by_month(month)
+    @@all.select { |concert| concert.month == month }
+  end
+
   def self.all
     @@all
   end
 
   def self.this_month(value)
     url_string = "http://www.sfsymphony.org/Buy-Tickets/Calendar#mo=#{value}"
-    @concerts = SfSymphonyConcerts::Scraper.scrape_month(url_string)
+    SfSymphonyConcerts::Scraper.scrape_month(url_string, value)
   end
 
   def scrape_details(url_string)

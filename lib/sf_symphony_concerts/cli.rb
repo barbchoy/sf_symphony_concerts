@@ -39,7 +39,12 @@ class SfSymphonyConcerts::CLI
       if input.to_i >= 1 && input.to_i <= @months_values.count
         month_string = @months_values.keys[input.to_i - 1]
         value = @months_values[month_string]
-        @concerts = SfSymphonyConcerts::Concert.this_month(value)
+        # @concerts = SfSymphonyConcerts::Concert.this_month(value)
+        @concerts = SfSymphonyConcerts::Concert.find_by_month(value)
+         if @concerts == []
+           SfSymphonyConcerts::Concert.this_month(value)
+           @concerts = SfSymphonyConcerts::Concert.find_by_month(value)
+         end
         if @concerts == []
           puts "There is no concert for the month. Please select another month."
         else
@@ -84,9 +89,10 @@ class SfSymphonyConcerts::CLI
         concert = @concerts[input.to_i - 1]
 
         if concert.artists == ""
-          concert.artists = concert.scrape_details(concert.url)[0]
-          concert.program = concert.scrape_details(concert.url)[1]
-          concert.description = concert.scrape_details(concert.url)[2]
+          concert_details = concert.scrape_details(concert.url)
+          concert.artists = concert_details[0]
+          concert.program = concert_details[1]
+          concert.description = concert_details[2]
         end
 
         puts "**************************************************"

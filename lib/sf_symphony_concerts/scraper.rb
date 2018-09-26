@@ -5,11 +5,11 @@ class SfSymphonyConcerts::Scraper
     session = Capybara::Session.new(:poltergeist)
     session.visit(url)
     session
+
   end
 
   def self.get_page_nokogiri(url)
-    # puts "*************Scraping**************"
-    @doc ||= Nokogiri::HTML(open(url))
+    @doc = Nokogiri::HTML(open(url))
   end
 
   def self.scrape_minical_index
@@ -23,10 +23,11 @@ class SfSymphonyConcerts::Scraper
 
   def self.scrape_minical
     months_values = {}
-    no_of_months = scrape_minical_index.css('option').count
+    minical = scrape_minical_index.css('option')
+    no_of_months = minical.count
     (1..no_of_months - 1).each do |index|
-      month = scrape_minical_index.css('option')[index].text
-      value = scrape_minical_index.css('option')[index]['value']
+      month = minical[index].text
+      value = minical[index]['value']
       months_values[month] = value
     end
     @doc = nil

@@ -39,7 +39,6 @@ class SfSymphonyConcerts::CLI
       if input.to_i >= 1 && input.to_i <= @months_values.count
         month_string = @months_values.keys[input.to_i - 1]
         value = @months_values[month_string]
-        # @concerts = SfSymphonyConcerts::Concert.this_month(value)
         @concerts = SfSymphonyConcerts::Concert.find_by_month(value)
          if @concerts == []
            SfSymphonyConcerts::Concert.this_month(value)
